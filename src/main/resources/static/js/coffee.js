@@ -2,7 +2,10 @@ COFFEE = (function () {
     "use strict";
 
     function init(params) {
-        $('.extras-checkbox, .coffee-radio').on('click', function () {
+
+        recalculateTotalPrice();
+
+        $('.extras-checkbox, .coffeeType').on('click', function () {
             recalculateTotalPrice();
         });
 
@@ -15,29 +18,41 @@ COFFEE = (function () {
             }
             event.preventDefault();
             event.stopPropagation();
+
+            var data = $order.serializeObject();
+            var extraOptions = [];
+            $('.extras-checkbox:checked').each(function (index, option) {
+                extraOptions.push(option.value);
+            });
+            data.options = extraOptions; //Fix ya que los checkbox no se deserializan bien
+
             var usersConfirm = confirm("¿Desea confirmar su orden?");
                     if (usersConfirm) {
                         $.ajax({
                             url: "/order",
                             method: "POST",
                             contentType: "application/json",
-                            data: $order.serializeJSON()
+                            data: JSON.stringify(data)
                         })
-                            .done(function () {
-                                /*alert("");*/
-                                window.location.reload();
+                            .done(function (response) {
+                                alert(response);
+                                reset();
+                                recalculateTotalPrice();
                             })
                             .fail(function (jqXHR) {
+                                alert("Oops! Algo anduvo mal...");
                                 if (jqXHR.responseJSON && jqXHR.responseJSON.errors) {
-                                    var errors = jqXHR.responseJSON.errors;
-                                    $order.validate().showErrors(errors);
+                                    $order.validate().showErrors(jqXHR.responseJSON.errors);
                                 }
-                            })
-                            .always(function () {
-
                             });
                     }
                 });
+    }
+
+    function reset(){
+        $('.coffeeType').prop('checked',false);
+        $('.extras-checkbox').prop('checked',false);
+        $('#input-money').val("");
     }
 
     function recalculateTotalPrice() {
@@ -50,7 +65,7 @@ COFFEE = (function () {
             }
         }
 
-        var selectedCoffee = $("input[name='coffee-radio']:checked");
+        var selectedCoffee = $("input[name='coffeeType']:checked");
 
         if(selectedCoffee.length > 0){
             totalPrice = totalPrice + Number(selectedCoffee[0].getAttribute('price'));

@@ -1,6 +1,8 @@
 package bayer.test.coffeevendingmachine.controller;
 
+import bayer.test.coffeevendingmachine.dto.BaseResponseDTO;
 import bayer.test.coffeevendingmachine.dto.OrderDTO;
+import bayer.test.coffeevendingmachine.exception.NotEnoughMoneyException;
 import bayer.test.coffeevendingmachine.model.CoffeeOptionsEnum;
 import bayer.test.coffeevendingmachine.model.CoffeeTypesEnum;
 import bayer.test.coffeevendingmachine.service.CoffeeService;
@@ -37,8 +39,14 @@ public class VendingController {
     public ResponseEntity orderCoffee(@Valid @RequestBody OrderDTO orderDTO){
         log.info("VendingController.orderCoffee - OrderDTO [{}]", orderDTO);
 
-        coffeeService.orderCoffee(orderDTO);
-
-        return ResponseEntity.ok().build();
+        try {
+            Double change = coffeeService.orderCoffee(orderDTO);
+            return ResponseEntity.ok("Muchas Gracias! Disfrute su café. Su vuelto: $ " +  change);
+        } catch (NotEnoughMoneyException e){
+            log.warn("Tried to get paid with less money than the total price");
+            BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
+            baseResponseDTO.addError("money", e.getMessage());
+            return ResponseEntity.badRequest().body(baseResponseDTO);
+        }
     }
 }

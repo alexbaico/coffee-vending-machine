@@ -8,12 +8,21 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        #coffeeType-error {
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <form id="order-form" th:object="${coffeeOrder}" method="POST" th:action="@{/order}">
-    <div class="row">
-        <div class="col-12 col-lg-6">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>Maquina expendedora de café</h2>
+            </div>
+            <div class="col-12 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Elija su café</h3>
@@ -21,21 +30,23 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4 col-4"><h4>Café</h4></div>
-                            <div class="col-lg-3 col-4"><h4>Precio</h4></div>
+                            <div class="col-lg-4 col-4"><h4>Precio</h4></div>
                             <div class="col-lg-3 col-4"></div>
                         </div>
                         <th:block th:each="coffeeType : ${coffeTypes}">
                             <div class="row">
                                 <div class="col-lg-4 col-4" th:text="${coffeeType.description}"></div>
-                                <div class="col-lg-3 col-4" th:text="'$ '+${coffeeType.price}"></div>
-                                <div class="col-lg-3 col-4"><input type="radio" class="coffee-radio" th:field="*{coffeeType}" th:value="${coffeeType}" th:attr="price=${coffeeType.price}" name="coffee-radio"></div>
+                                <div class="col-lg-4 col-4" th:text="'$ '+${coffeeType.price}"></div>
+                                <div class="col-lg-3 col-4"><input type="radio" class="coffeeType"
+                                                                   th:field="*{coffeeType}" th:value="${coffeeType}"
+                                                                   th:attr="price=${coffeeType.price}"></div>
                             </div>
                         </th:block>
                     </div>
+                </div>
             </div>
-        </div>
 
-        <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Elija si quiere ponerle algo extra</h3>
@@ -43,32 +54,50 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4 col-4"><h4>Opción</h4></div>
-                            <div class="col-lg-3 col-4"><h4>Precio</h4></div>
+                            <div class="col-lg-4 col-4"><h4>Precio</h4></div>
                             <div class="col-lg-3 col-4"></div>
                         </div>
                         <th:block th:each="extraOption : ${extraOptions}">
                             <div class="row">
                                 <div class="col-lg-4 col-4" th:text="${extraOption.description}"></div>
-                                <div class="col-lg-3 col-4" th:text="'$ '+${extraOption.extraPrice}"></div>
-                                <div class="col-lg-3 col-4"><input type="checkbox" class="extras-checkbox" th:field="*{options}" th:value="${extraOption}" th:attr="price=${extraOption.extraPrice}"></div>
+                                <div class="col-lg-4 col-4" th:text="'$ '+${extraOption.extraPrice}"></div>
+                                <div class="col-lg-3 col-4">
+                                    <input type="checkbox" class="extras-checkbox" th:field="*{options}"
+                                           th:value="${extraOption}" th:attr="price=${extraOption.extraPrice}">
+                                </div>
                             </div>
                         </th:block>
                     </div>
+                </div>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">Precio total</div>
-                        <div class="col-3">$ <span id="precio-total">0</span></div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-4">Precio total</div>
+                            <div class="col-6 col-lg-3">$ <span id="precio-total">0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-4">
+                                <label for="money">Dinero a pagar: $</label>
+                                <input id="input-money" class="form-control" type="text" th:field="*{money}">
+                            </div>
+                            <div class="col-6 col-lg-3 d-flex align-items-end">
+                                <button type="button" class="btn btn-success" id="order-form-submit">Pagar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-        <button type="button" class="btn btn-success" id="order-form-submit">Sub</button>
     </form>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -82,6 +111,7 @@
 <script th:src="@{/js/coffee.js}"></script>
 <script th:src="@{/webjars/jquery-validation/1.17.0/jquery.validate.js}"></script>
 <script th:src="@{/webjars/github-com-macek-jquery-serialize-object/2.5.0/jquery.serialize-object.js}"></script>
+<script th:src="@{/js/config.js}"></script>
 
 <script>
     $(document).ready(function () {
