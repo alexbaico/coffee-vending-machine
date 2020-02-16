@@ -5,7 +5,7 @@ import bayer.test.coffeevendingmachine.dto.OrderDTO;
 import bayer.test.coffeevendingmachine.exception.NotEnoughMoneyException;
 import bayer.test.coffeevendingmachine.model.CoffeeOptionsEnum;
 import bayer.test.coffeevendingmachine.model.CoffeeTypesEnum;
-import bayer.test.coffeevendingmachine.service.CoffeeService;
+import bayer.test.coffeevendingmachine.service.VendingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class VendingController {
 
-    private final CoffeeService coffeeService;
+    private final VendingService vendingService;
 
     @GetMapping("/")
     public String home(Model model){
@@ -40,7 +40,7 @@ public class VendingController {
         log.info("VendingController.orderCoffee - OrderDTO [{}]", orderDTO);
 
         try {
-            Double change = coffeeService.orderCoffee(orderDTO);
+            Double change = vendingService.orderCoffee(orderDTO);
             return ResponseEntity.ok("Muchas Gracias! Disfrute su café. Su vuelto: $ " +  change);
         } catch (NotEnoughMoneyException e){
             log.warn("Tried to get paid with less money than the total price");

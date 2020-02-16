@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CoffeeService {
+public class VendingService {
 
     /**
      * Calculates the total price of the coffe with the extra options selected
@@ -22,8 +22,8 @@ public class CoffeeService {
      * @param options
      * @return the total price of the coffee
      */
-    public Double calculatePrice(CoffeeTypesEnum coffeeType, List<CoffeeOptionsEnum> options){
-        log.info("CoffeeService.calculatePrice - options [{}]", options);
+    private Double calculatePrice(CoffeeTypesEnum coffeeType, List<CoffeeOptionsEnum> options){
+        log.info("VendingService.calculatePrice - options [{}]", options);
 
         return coffeeType.getPrice() + (CollectionUtils.isEmpty(options) ? 0 : options.stream().mapToDouble(CoffeeOptionsEnum::getExtraPrice).sum());
     }
@@ -35,7 +35,7 @@ public class CoffeeService {
      * @return the change (difference between payed money and total price)
      */
     public Double orderCoffee(OrderDTO orderDTO) {
-        log.info("CoffeeService.orderCoffee - orderDTO [{}]", orderDTO);
+        log.info("VendingService.orderCoffee - orderDTO [{}]", orderDTO);
 
         Double totalPrice = calculatePrice(orderDTO.getCoffeeType(), orderDTO.getOptions());
         Double moneyPayed = Double.valueOf(orderDTO.getMoney());
