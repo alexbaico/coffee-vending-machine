@@ -54,7 +54,7 @@ public class VendingControllerTest {
     public void orderWithoutMoneyInputted() throws Exception {
         this.mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"coffeeType\": \"IRISH\",\"money\": \"\",\"options\":[\"CHOCOLATE\"]}"))
+                .content("{\"coffeeType\": \"IRISH\",\"options\":[\"CHOCOLATE\"]}"))
                 .andExpect(status().isBadRequest());
     }
 

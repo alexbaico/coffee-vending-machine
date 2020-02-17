@@ -25,7 +25,7 @@ public class VendingServiceTest {
         orderDTO.setOptions(Arrays.asList(CoffeeOptionsEnum.CACAO,CoffeeOptionsEnum.CHOCOLATE, CoffeeOptionsEnum.CINNAMON));
 
         double price = orderDTO.getCoffeeType().getPrice() +  orderDTO.getOptions().stream().mapToDouble(CoffeeOptionsEnum::getExtraPrice).sum();
-        orderDTO.setMoney(Double.valueOf(price - 5).toString());
+        orderDTO.setMoney(price - 5);
 
         target.orderCoffee(orderDTO);
 
@@ -39,7 +39,7 @@ public class VendingServiceTest {
         orderDTO.setOptions(Arrays.asList(CoffeeOptionsEnum.CACAO,CoffeeOptionsEnum.MILK, CoffeeOptionsEnum.RON));
 
         double price = orderDTO.getCoffeeType().getPrice() +  orderDTO.getOptions().stream().mapToDouble(CoffeeOptionsEnum::getExtraPrice).sum();
-        orderDTO.setMoney(Double.valueOf(price).toString());
+        orderDTO.setMoney(price);
 
         Double change = target.orderCoffee(orderDTO);
 
@@ -53,7 +53,7 @@ public class VendingServiceTest {
         orderDTO.setOptions(Arrays.asList(CoffeeOptionsEnum.MILK,CoffeeOptionsEnum.CHOCOLATE));
 
         double price = orderDTO.getCoffeeType().getPrice() +  orderDTO.getOptions().stream().mapToDouble(CoffeeOptionsEnum::getExtraPrice).sum();
-        orderDTO.setMoney(Double.valueOf(price + 5.5D).toString());
+        orderDTO.setMoney(price + 5.5D);
 
         Double change = target.orderCoffee(orderDTO);
 

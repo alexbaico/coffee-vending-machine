@@ -4,7 +4,8 @@ import bayer.test.coffeevendingmachine.model.CoffeeOptionsEnum;
 import bayer.test.coffeevendingmachine.model.CoffeeTypesEnum;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -15,6 +16,7 @@ public class OrderDTO {
 
     private List<CoffeeOptionsEnum> options;
 
-    @Pattern(regexp = "^[0-9]+(\\.[0-9]*)?$", message="Ingrese dinero con números y decimales separados por \".\"")
-    private String money;
+    @Min(value = 1, message = "Ingrese el dinero con el que va a pagar")
+    @NotNull(message = "Ingrese el dinero con el que va a pagar")
+    private Double money;
 }

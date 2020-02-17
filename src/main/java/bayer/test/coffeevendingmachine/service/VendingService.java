@@ -38,7 +38,7 @@ public class VendingService {
         log.info("VendingService.orderCoffee - orderDTO [{}]", orderDTO);
 
         Double totalPrice = calculatePrice(orderDTO.getCoffeeType(), orderDTO.getOptions());
-        Double moneyPayed = Double.valueOf(orderDTO.getMoney());
+        Double moneyPayed = orderDTO.getMoney();
         if(moneyPayed < totalPrice){
             throw new NotEnoughMoneyException("Dinero insuficiente para pagar el café");
         }

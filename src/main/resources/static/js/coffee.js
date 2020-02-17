@@ -38,6 +38,8 @@ COFFEE = (function () {
                                 alert(response);
                                 reset();
                                 recalculateTotalPrice();
+                                $('#coffee-img').show();
+                                setTimeout(function () {$('#coffee-img').hide();}, 2000);
                             })
                             .fail(function (jqXHR) {
                                 alert("Oops! Algo anduvo mal...");
@@ -47,12 +49,23 @@ COFFEE = (function () {
                             });
                     }
                 });
+
+        $('.input-money-button').on('click', function () {
+            var $this = $(this);
+            var $totalInputted = $('#total-input');
+
+            var newTotalInputted = Number($totalInputted.html()) + Number($this.prop("value"));
+
+            $('#money').val(newTotalInputted);
+            $totalInputted.html(newTotalInputted);
+        })
     }
 
     function reset(){
         $('.coffeeType').prop('checked',false);
         $('.extras-checkbox').prop('checked',false);
-        $('#input-money').val("");
+        $('#money').val("");
+        $('#total-input').html("0");
     }
 
     function recalculateTotalPrice() {
