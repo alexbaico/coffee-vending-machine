@@ -2,7 +2,7 @@
 
 This is a stateless app that simulates a coffee vending machine.
 It provides a view where you select the type of coffee which is required, and the extra options in case you want any (these are not required). 
-Then you "insert" the money you are gonna pay with, and confirm your order.
+Then you insert the tickets you are gonna pay with, and confirm your order.
 
 The app calculates if the money inputted is enough to pay the total price of the coffee, and, in case it's more, calculates 
 the change to return to the customer.
