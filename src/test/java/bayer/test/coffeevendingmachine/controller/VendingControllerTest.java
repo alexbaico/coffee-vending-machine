@@ -46,7 +46,7 @@ public class VendingControllerTest {
     public void orderWithoutCoffeeTypeSelected() throws Exception {
         this.mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"money\": \"20\",\"options\":[\"MILK\"]}"))
+                .content("{\"money\": 20,\"optionsIds\":[1,2]}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -54,7 +54,7 @@ public class VendingControllerTest {
     public void orderWithoutMoneyInputted() throws Exception {
         this.mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"coffeeType\": \"IRISH\",\"options\":[\"CHOCOLATE\"]}"))
+                .content("{\"coffeeTypeId\": 2,\"optionsIds\":[1]}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -62,7 +62,7 @@ public class VendingControllerTest {
     public void orderOK() throws Exception {
         this.mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"coffeeType\": \"BLACK\",\"money\": \"30\",\"options\":[\"CACAO\", \"RON\"]}"))
+                .content("{\"coffeeTypeId\": 1,\"money\": \"30\",\"optionsIds\":[2,3]}"))
                 .andExpect(status().isOk());
 
         Mockito.verify(vendingService, Mockito.times(1)).orderCoffee(ArgumentMatchers.any());
