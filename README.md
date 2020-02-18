@@ -12,8 +12,9 @@ You can use the Swagger UI interface to interact with it at [localhost:8080/swag
 
 ## Pre-requisites
 
-  maven - version 3.* recommended
-
+  - maven - version 3.* recommended
+  - java 8
+  
 ## Running the app
 
   run ```mvn spring-boot:run```
