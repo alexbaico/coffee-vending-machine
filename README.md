@@ -31,5 +31,5 @@ You can use the Swagger UI interface to interact with it at [localhost:8080/swag
 * [Thymeleaf](https://www.thymeleaf.org/)
 * [Jquery](https://jquery.com/)
 * [Bootstrap](https://getbootstrap.com/)
-* H2 databse
+* H2 database in memory
 * [Swagger](https://swagger.io/)
