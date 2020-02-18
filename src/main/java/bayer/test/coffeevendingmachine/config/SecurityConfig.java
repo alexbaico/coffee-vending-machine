@@ -1,4 +1,4 @@
-package bayer.test.coffeevendingmachine.configuration.security;
+package bayer.test.coffeevendingmachine.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

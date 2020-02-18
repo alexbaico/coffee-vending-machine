@@ -10,7 +10,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <style>
-        #coffeeType-error {
+        #coffeeTypeId-error {
             position: absolute;
         }
         .bg-green {
@@ -28,6 +28,16 @@
                     <h2>Maquina expendedora de café</h2>
                 </div>
             </div>
+            <th:block th:if="${outOfCoffee}" >
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h3>Lo sentimos, se acabó el café por el momento =(</h3>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:unless="${outOfCoffee}">
             <div class="col-12 col-lg-6">
                 <div class="card">
                     <div class="card-header bg-green">
@@ -39,13 +49,14 @@
                             <div class="col-lg-4 col-4"><h4>Precio</h4></div>
                             <div class="col-lg-3 col-4"></div>
                         </div>
-                        <th:block th:each="coffeeType : ${coffeTypes}">
+                        <th:block th:each="coffeeType : ${coffeeTypes}">
                             <div class="row">
                                 <div class="col-lg-4 col-4" th:text="${coffeeType.description}"></div>
                                 <div class="col-lg-4 col-4" th:text="'$ '+${coffeeType.price}"></div>
                                 <div class="col-lg-3 col-4"><input type="radio" class="coffeeType"
-                                                                   th:field="*{coffeeType}" th:value="${coffeeType}"
-                                                                   th:attr="price=${coffeeType.price}"></div>
+                                                                   th:field="*{coffeeTypeId}" th:value="${coffeeType.id}"
+                                                                   th:attr="price=${coffeeType.price}" th:if="${coffeeType.inventory.stock > 0}">
+                                <span th:unless="${coffeeType.inventory.stock > 0}">Sin stock</span></div>
                             </div>
                         </th:block>
                     </div>
@@ -66,10 +77,11 @@
                         <th:block th:each="extraOption : ${extraOptions}">
                             <div class="row">
                                 <div class="col-lg-4 col-4" th:text="${extraOption.description}"></div>
-                                <div class="col-lg-4 col-4" th:text="'$ '+${extraOption.extraPrice}"></div>
+                                <div class="col-lg-4 col-4" th:text="'$ '+${extraOption.price}"></div>
                                 <div class="col-lg-3 col-4">
-                                    <input type="checkbox" class="extras-checkbox" th:field="*{options}"
-                                           th:value="${extraOption}" th:attr="price=${extraOption.extraPrice}">
+                                    <input type="checkbox" class="extras-checkbox" th:field="*{optionsIds}"
+                                           th:value="${extraOption.id}" th:attr="price=${extraOption.price}" th:if="${extraOption.inventory.stock > 0}">
+                                    <span th:unless="${extraOption.inventory.stock > 0}">Sin stock</span>
                                 </div>
                             </div>
                         </th:block>
@@ -113,6 +125,7 @@
                     </div>
                 </div>
             </div>
+            </th:block>
         </div>
     </form>
 
