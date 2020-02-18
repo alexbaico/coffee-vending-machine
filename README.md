@@ -9,7 +9,8 @@ the change to return to the customer.
 
 ## Pre-requisites
 
-  maven - version 3.* recommended
+  - maven - version 3.* recommended
+  - java 8
 
 ## Running the app
 
