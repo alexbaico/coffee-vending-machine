@@ -39,7 +39,7 @@
                             <div class="col-lg-4 col-4"><h4>Precio</h4></div>
                             <div class="col-lg-3 col-4"></div>
                         </div>
-                        <th:block th:each="coffeeType : ${coffeTypes}">
+                        <th:block th:each="coffeeType : ${coffeeTypes}">
                             <div class="row">
                                 <div class="col-lg-4 col-4" th:text="${coffeeType.description}"></div>
                                 <div class="col-lg-4 col-4" th:text="'$ '+${coffeeType.price}"></div>

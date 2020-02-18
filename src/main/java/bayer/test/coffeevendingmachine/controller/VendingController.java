@@ -29,7 +29,7 @@ public class VendingController {
         log.info("VendingController.home");
 
         model.addAttribute("extraOptions", CoffeeOptionsEnum.values());
-        model.addAttribute("coffeTypes", CoffeeTypesEnum.values());
+        model.addAttribute("coffeeTypes", CoffeeTypesEnum.values());
         model.addAttribute("coffeeOrder", new OrderDTO());
 
         return "home";
