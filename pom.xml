@@ -8,11 +8,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>bayer.test</groupId>
+	<groupId>test</groupId>
 	<artifactId>coffee-vending-machine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>coffee-vending-machine</name>
-	<description>Coffee vending machine test for Bayer</description>
+	<description>Coffee vending machine</description>
 
 	<properties>
 		<java.version>1.8</java.version>
